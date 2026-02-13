@@ -1,0 +1,44 @@
+
+CREATE DATABASE IF NOT EXISTS `overflow_db` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE `overflow_db`;
+
+CREATE TABLE leave_requests (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+
+    employee_name VARCHAR(100) NOT NULL,
+    branch VARCHAR(100) NULL,
+    start_date DATE NULL,
+    end_date DATE NULL,
+    total_days INT NULL,
+    reason TEXT NULL,
+
+    -- Status ចម្បង
+    -- Pending_Manager  : បុគ្គលិកបញ្ជូនរួច រង់ចាំអ្នកគ្រប់គ្រង
+    -- Pending_HR       : អ្នកគ្រប់គ្រង confirm → រង់ចាំ HR
+    -- Pending_Final_Manager : HR confirm/reject → រង់ចាំអ្នកគ្រប់គ្រងផ្ញើលទ្ធផលទៅបុគ្គលិក
+    -- Approved         : បញ្ចប់ អនុម័ត
+    -- Rejected         : បញ្ចប់ បដិសេធ
+    status VARCHAR(50) NOT NULL DEFAULT 'Pending_Manager',
+
+    -- ជំហានអ្នកគ្រប់គ្រង
+    manager_decision VARCHAR(20) NULL,
+    manager_remark   TEXT NULL,
+    manager_decided_at DATETIME NULL,
+
+    hr_decision VARCHAR(20) NULL,
+    hr_remark   TEXT NULL,
+    hr_decided_at DATETIME NULL,
+
+
+    final_decision VARCHAR(20) NULL,
+    final_remark   TEXT NULL,
+    final_decided_at DATETIME NULL,
+
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+
+
+
